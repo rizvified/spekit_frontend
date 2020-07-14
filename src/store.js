@@ -1,17 +1,12 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext } from "react";
+import reducer from "./reducer";
 
 const initialState = {
-  results: [],
+  albums: [],
   favorites: [],
-  loading: false
+  loading: false,
+  searchQuery: null,
 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
 
 export const Store = createContext();
 export function StoreProvider(props) {
