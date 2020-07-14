@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./pages/home.jsx";
-// import Favorites from "./pages/favorites";
+import Favorites from "./pages/favorites.jsx";
 
 import "./styles/App.css";
 
@@ -13,9 +13,9 @@ function App() {
         <Route path='/'>
           <Home />
         </Route>
-        {/* <Route path='/favorites'>
+        <Route path='/favorites'>
           <Favorites />
-        </Route> */}
+        </Route>
       </Switch>
     </Router>
   );

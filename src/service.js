@@ -1,7 +1,7 @@
 import { API_URL } from "./constants";
 import { normalizeResponse } from "./normalizers";
 
-export const fetchData = async () => {
+export const getAlbumsByArtist = async () => {
   try {
     const data = await fetch(API_URL);
     const dataJSON = await data.json();
@@ -13,5 +13,5 @@ export const fetchData = async () => {
 };
 
 export default {
-  fetchData,
+  getAlbumsByArtist,
 };
