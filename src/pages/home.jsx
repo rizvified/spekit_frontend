@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext } from "react";
+import _ from "lodash";
+
 import { Store } from "../store";
 
 import SearchBar from "../components/searchbar";
@@ -9,35 +11,27 @@ import { getAlbumsByArtist } from "../service";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { albums, searchQuery } = state;
+  const { albums } = state;
 
-  // Dispatch doesn't need to change on every render
-  const stableDispatch = useCallback(dispatch, []);
-
-  useEffect(() => {
-    const fetchDataAction = async () => {
-      const payload = await getAlbumsByArtist();
-      stableDispatch({
-        type: actionTypes.FETCH_DATA_COMPLETE,
-        payload,
-      });
-    };
-    fetchDataAction();
-  }, [stableDispatch, searchQuery]);
-
-  const updateSearchQuery = (query) =>
-    stableDispatch({
-      type: actionTypes.UPDATE_QUERY,
-      payload: query,
-    });
+  const fetchData = async (query) => {
+    if (query) {
+      const payload = await getAlbumsByArtist(query);
+      if (Array.isArray(payload) && payload.length > 0) {
+        dispatch({
+          type: actionTypes.FETCH_DATA_COMPLETE,
+          payload,
+        });
+      }
+    }
+  };
 
   return (
     <>
       <header className='header'>
-        <SearchBar onChange={updateSearchQuery} />
+        <SearchBar fetchData={fetchData} />
       </header>
       <section className='album-list'>
-        {albums.map((album) => (
+        {_.map(albums, (album) => (
           <Card album={album} />
         ))}
       </section>

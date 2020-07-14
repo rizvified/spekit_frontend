@@ -1,9 +1,10 @@
-import { API_URL } from "./constants";
-import { normalizeResponse } from "./normalizers";
+import { normalizeResponse } from "./utils/normalizers";
+import { generateURL } from "./utils/helpers";
 
-export const getAlbumsByArtist = async () => {
+export const getAlbumsByArtist = async (query) => {
   try {
-    const data = await fetch(API_URL);
+    const url = generateURL(query);
+    const data = await fetch(url);
     const dataJSON = await data.json();
     const normalizedData = normalizeResponse(dataJSON);
     return normalizedData;

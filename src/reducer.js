@@ -1,5 +1,5 @@
 import * as actionTypes from "./constants";
-import { filterFavorites } from "./normalizers";
+import { filterFavorites } from "./utils/normalizers";
 
 export default function (state, action) {
   switch (action.type) {

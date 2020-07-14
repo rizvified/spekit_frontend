@@ -1,4 +1,5 @@
-export const API_URL = "https://itunes.apple.com/search";
+export const API_URL = "https://itunes.apple.com";
+export const SEARCH_ENTITY = "album";
 
 export const FETCH_DATA = "FETCH_DATA";
 export const FETCH_DATA_COMPLETE = "FETCH_DATA_COMPLETE";
