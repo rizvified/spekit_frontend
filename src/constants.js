@@ -2,7 +2,6 @@ export const API_URL = "https://itunes.apple.com";
 
 export const SEARCH_ENTITY = "album";
 export const QUERY_LIMIT = 200;
-
 export const ARTWORK_DIMENSIONS = {
   width: 640,
   height: 480,
