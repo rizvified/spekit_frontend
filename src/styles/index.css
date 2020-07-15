@@ -1,6 +1,8 @@
 @import "app.css";
 @import "card.css";
 @import "searchbar.css";
+@import "home.css";
+@import "favorites.css";
 
 body {
   margin: 0;

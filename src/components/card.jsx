@@ -2,20 +2,20 @@ import React from "react";
 
 export default ({ album, clickHandler }) => {
   return (
-    <div class='card'>
-      <div class='container'>
-        <div class='top'>
+    <div className='card'>
+      <div className='container'>
+        <div className='top'>
           <img src={album.artwork} alt='artwork' />
         </div>
-        <div class='bottom'>
-          <div class='details'>
+        <div className='bottom'>
+          <div className='details'>
             <h4>{album.name}</h4>
             <p>{album.artist}</p>
             <p>{album.genre}</p>
-            <p>{`${album.tracks} tracks`}</p>
+            <p>{`${album.tracks} Tracks`}</p>
           </div>
-          <div class='favorite'>
-            <button onClick={() => clickHandler(album)}>Fav</button>
+          <div className='favorite'>
+            <button onClick={() => clickHandler(album)}>Favorite</button>
           </div>
         </div>
       </div>

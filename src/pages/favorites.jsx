@@ -48,21 +48,25 @@ export default () => {
 
   return (
     <>
-      <header className='header'>
-        <Select
-          value={artistLookup.selectedArtist}
-          onChange={handleArtistChange}
-          options={normalizeDropdownData(artistLookup)}
-          isClearable
-          isSearchable
-        />
-        <button onClick={handleRemoveAll}>Remove All</button>
+      <header className='header-favorites'>
+        <h2>Favorites</h2>
+        <div className='favorite-actions'>
+          <Select
+            className='favorite-select'
+            value={artistLookup.selectedArtist}
+            onChange={handleArtistChange}
+            options={normalizeDropdownData(artistLookup)}
+            isClearable
+            isSearchable
+          />
+          <button onClick={handleRemoveAll}>Remove All</button>
+        </div>
       </header>
-      <section className='fav-list'>
+      <main className='favorite-list'>
         {_.map(list, (album) => (
           <Card album={album} clickHandler={handleRemoveFavorite} />
         ))}
-      </section>
+      </main>
     </>
   );
 };

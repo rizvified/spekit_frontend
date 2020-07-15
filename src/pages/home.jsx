@@ -40,15 +40,15 @@ export default () => {
 
   return (
     <>
-      <header className='header'>
+      <header className='header-home'>
         <SearchBar fetchData={fetchData} />
         <Link to='/favorites'>Favorites</Link>
       </header>
-      <section className='album-list'>
+      <main className='album-list'>
         {_.map(albums, (album) => (
           <Card album={album} clickHandler={handleAddFavorite} />
         ))}
-      </section>
+      </main>
     </>
   );
 };

@@ -1,0 +1,14 @@
+.header-home {
+  display: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin: 0 25%; */
+}
+
+.album-list {
+  display: inherit;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: inherit;
+}

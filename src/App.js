@@ -6,16 +6,18 @@ import Favorites from "./pages/favorites.jsx";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route exact path='/favorites'>
-          <Favorites />
-        </Route>
-      </Switch>
-    </Router>
+    <div className='app'>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route exact path='/favorites'>
+            <Favorites />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
