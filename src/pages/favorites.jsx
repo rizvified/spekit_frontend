@@ -1,16 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Select from "react-select";
 import _ from "lodash";
 
 import Card from "../components/card";
 
+import * as actionTypes from "../constants";
 import { Store } from "../store";
 import { normalizeDropdownData } from "../utils/normalizers";
-import * as actionTypes from "../constants";
+import { retrieveFromStorage } from "../utils/helpers";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { favorites, favArtists, favByArtists, selectedArtist } = state;
+  const { favorites, artistLookup, favByArtists, selectedArtist } = state;
+
+  useEffect(() => {
+    const data = retrieveFromStorage();
+    if (!_.isEmpty(data)) {
+      dispatch({
+        type: actionTypes.UPDATE_DATA_FROM_STORAGE,
+        payload: data,
+      });
+    }
+  }, []);
 
   const handleArtistChange = (artist) => {
     const payload = artist ? artist.value : "";
@@ -28,15 +39,15 @@ export default () => {
   };
 
   const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
-  console.log("favorites", favorites, favArtists, selectedArtist, list);
+  console.log("favorites", favorites, artistLookup, selectedArtist, list);
 
   return (
     <>
       <header className='header'>
         <Select
-          value={favArtists.selectedArtist}
+          value={artistLookup.selectedArtist}
           onChange={handleArtistChange}
-          options={normalizeDropdownData(favArtists)}
+          options={normalizeDropdownData(artistLookup)}
           isClearable
           isSearchable
         />

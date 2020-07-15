@@ -5,7 +5,7 @@ const initialState = {
   albums: [],
   favorites: [],
   favByArtists: {},
-  favArtists: {},
+  artistLookup: {},
   selectedArtist: "",
   loading: false,
 };

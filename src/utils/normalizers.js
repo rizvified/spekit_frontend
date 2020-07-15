@@ -49,7 +49,7 @@ export const removeFromFavorites = (
   favByArtists
 ) => {
   const favByArtistObj = Object.assign({}, favByArtists);
-  let lookupObj = Object.assign({}, favArtists);
+  let artistLookup = Object.assign({}, favArtists);
   const { id, artistId } = albumObj;
 
   const favList = _.filter(favorites, (item) => item.id !== id);
@@ -59,7 +59,7 @@ export const removeFromFavorites = (
       (item) => item.id !== id
     );
     if (favByArtistObj[`${artistId}`].length === 0) {
-      lookupObj = removeFromArtistLookup(albumObj, lookupObj);
+      artistLookup = removeFromArtistLookup(albumObj, artistLookup);
       _.omit(favByArtistObj, `${artistId}`);
     }
   }
@@ -67,7 +67,7 @@ export const removeFromFavorites = (
   return {
     favList,
     favByArtistObj,
-    lookupObj,
+    artistLookup,
   };
 };
 

@@ -4,6 +4,7 @@ import {
   addToArtistLookup,
   addToFavorites,
 } from "./utils/normalizers";
+import { saveToStorage } from "./utils/helpers";
 
 export default function (state, action) {
   switch (action.type) {
@@ -20,29 +21,39 @@ export default function (state, action) {
       };
     case actionTypes.ADD_FAVORITE: {
       const { payload } = action;
-      const artistLookup = addToArtistLookup(payload, state.favArtists);
+      const artistLookup = addToArtistLookup(payload, state.artistLookup);
       const { favList, favByArtistObj } = addToFavorites(
         payload,
         state.favorites,
         state.favByArtists
       );
+      saveToStorage({
+        favorites: favList,
+        favByArtists: favByArtistObj,
+        artistLookup,
+      });
       return {
         ...state,
-        favArtists: artistLookup,
+        artistLookup,
         favorites: favList,
         favByArtists: favByArtistObj,
       };
     }
     case actionTypes.REMOVE_FAVORITE: {
-      const { favList, favByArtistObj, lookupObj } = removeFromFavorites(
+      const { favList, favByArtistObj, artistLookup } = removeFromFavorites(
         action.payload,
         state.favorites,
-        state.favArtists,
+        state.artistLookup,
         state.favByArtists
       );
+      saveToStorage({
+        favorites: favList,
+        favByArtists: favByArtistObj,
+        artistLookup,
+      });
       return {
         ...state,
-        favArtists: lookupObj,
+        artistLookup,
         favorites: favList,
         favByArtists: favByArtistObj,
       };
@@ -51,6 +62,11 @@ export default function (state, action) {
       return {
         ...state,
         selectedArtist: action.payload,
+      };
+    case actionTypes.UPDATE_DATA_FROM_STORAGE:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return state;
