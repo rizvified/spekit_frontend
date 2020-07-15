@@ -3,7 +3,8 @@ import reducer from "./reducer";
 
 const initialState = {
   albums: [],
-  favorites: [],
+  favorites: {},
+  favArtists: {},
   loading: false,
 };
 

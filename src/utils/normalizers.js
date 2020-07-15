@@ -12,5 +12,51 @@ export const normalizeResponse = (data) =>
     artwork: generateImageURL(item.artworkUrl100),
   }));
 
-export const filterFavorites = (id, favorites) =>
-  _.filter(favorites, (fav) => fav.id !== id);
+export const addToArtistLookup = (albumObj, favArtists) => {
+  let lookupObj = Object.assign({}, favArtists);
+  const { artist, artistId } = albumObj;
+  if (!_.has(lookupObj, artistId)) {
+    lookupObj.artistId = artist;
+  }
+  return lookupObj;
+};
+
+export const removeFromArtistLookup = (albumObj, favArtists) => {
+  let lookupObj = Object.assign({}, favArtists);
+  const { artistId } = albumObj;
+  if (_.has(lookupObj, artistId)) {
+    _.omit(lookupObj, `${artistId}`);
+  }
+  return lookupObj;
+};
+
+export const addToFavorites = (albumObj, favorites) => {
+  const favoritesObj = Object.assign({}, favorites);
+  const { artistId } = albumObj;
+  if (!_.has(favoritesObj, artistId)) {
+    favoritesObj.artistId = [];
+  }
+  favoritesObj.artistId.push(albumObj);
+  return favoritesObj;
+};
+
+export const removeFromFavorites = (albumObj, favorites, favArtists) => {
+  const favoritesObj = Object.assign({}, favorites);
+  let lookupObj = Object.assign({}, favArtists);
+  const { id, artistId } = albumObj;
+  if (_.has(favoritesObj, artistId)) {
+    favoritesObj.artistId = _.filter(
+      favoritesObj.artistId,
+      (item) => item.id !== id
+    );
+    if (favoritesObj.artistId.length === 0) {
+      lookupObj = removeFromArtistLookup(albumObj, lookupObj);
+      _.omit(favoritesObj, `${artistId}`);
+    }
+  }
+
+  return {
+    favoritesObj,
+    lookupObj,
+  };
+};

@@ -1,5 +1,9 @@
 import * as actionTypes from "./constants";
-import { filterFavorites } from "./utils/normalizers";
+import {
+  removeFromFavorites,
+  addToArtistLookup,
+  addToFavorites,
+} from "./utils/normalizers";
 
 export default function (state, action) {
   switch (action.type) {
@@ -15,15 +19,24 @@ export default function (state, action) {
         albums: action.payload,
       };
     case actionTypes.ADD_FAVORITE:
+      const { payload } = action;
+      const artistLookup = addToArtistLookup(payload, state.favArtists);
+      const favAlbumsList = addToFavorites(payload, state.favorites);
       return {
         ...state,
-        favorites: [...state.favorites, action.payload],
+        favArtists: artistLookup,
+        favorites: favAlbumsList,
       };
     case actionTypes.REMOVE_FAVORITE:
-      const filteredFav = filterFavorites(action.payload, state.favorites);
+      const { favoritesObj, lookupObj } = removeFromFavorites(
+        action.payload,
+        state.favorites,
+        state.favArtists
+      );
       return {
         ...state,
-        favorites: filteredFav,
+        favArtists: lookupObj,
+        favorites: favoritesObj,
       };
     default:
       return state;
