@@ -54,3 +54,9 @@ export const retrieveFromStorage = () => {
   }
   return storageValues;
 };
+
+export const clearStorage = () => {
+  if (_.has(localStorage, STORAGE_KEY)) {
+    storageUtils.remove(STORAGE_KEY);
+  }
+};

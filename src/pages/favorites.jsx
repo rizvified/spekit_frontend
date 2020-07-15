@@ -38,6 +38,12 @@ export default () => {
     });
   };
 
+  const handleRemoveAll = () => {
+    dispatch({
+      type: actionTypes.REMOVE_ALL_FAVORITES,
+    });
+  };
+
   const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
 
   return (
@@ -50,6 +56,7 @@ export default () => {
           isClearable
           isSearchable
         />
+        <button onClick={handleRemoveAll}>Remove All</button>
       </header>
       <section className='fav-list'>
         {_.map(list, (album) => (

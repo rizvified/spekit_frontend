@@ -8,20 +8,16 @@ import Card from "../components/card";
 import * as actionTypes from "../constants";
 import { Store } from "../store";
 import { getAlbumsByArtist } from "../service";
-import { controller } from "../service";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
   const { albums } = state;
 
   useEffect(() => {
-    dispatch({
-      type: actionTypes.RESET_STATE,
-    });
-
-    // Cancel data fetching on page change.
     return () => {
-      controller.abort();
+      dispatch({
+        type: actionTypes.RESET_SEARCH,
+      });
     };
   }, []);
 

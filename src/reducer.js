@@ -4,13 +4,15 @@ import {
   addToArtistLookup,
   addToFavorites,
 } from "./utils/normalizers";
-import { saveToStorage } from "./utils/helpers";
-import { initialState } from "./store";
+import { saveToStorage, clearStorage } from "./utils/helpers";
 
 export default function (state, action) {
   switch (action.type) {
-    case actionTypes.RESET_STATE:
-      return initialState;
+    case actionTypes.RESET_SEARCH:
+      return {
+        ...state,
+        albums: [],
+      };
     case actionTypes.FETCH_DATA:
       return {
         ...state,
@@ -59,6 +61,15 @@ export default function (state, action) {
         artistLookup,
         favorites: favList,
         favByArtists: favByArtistObj,
+      };
+    }
+    case actionTypes.REMOVE_ALL_FAVORITES: {
+      clearStorage();
+      return {
+        ...state,
+        favorites: [],
+        favByArtists: {},
+        artistLookup: {},
       };
     }
     case actionTypes.UPDATE_SELECTED_ARTIST:
