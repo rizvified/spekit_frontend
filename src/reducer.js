@@ -18,26 +18,35 @@ export default function (state, action) {
         loading: false,
         albums: action.payload,
       };
-    case actionTypes.ADD_FAVORITE:
+    case actionTypes.ADD_FAVORITE: {
       const { payload } = action;
       const artistLookup = addToArtistLookup(payload, state.favArtists);
-      const favAlbumsList = addToFavorites(payload, state.favorites);
+      const { favList, favByArtistObj } = addToFavorites(
+        payload,
+        state.favorites,
+        state.favByArtists
+      );
       return {
         ...state,
         favArtists: artistLookup,
-        favorites: favAlbumsList,
+        favorites: favList,
+        favByArtists: favByArtistObj,
       };
-    case actionTypes.REMOVE_FAVORITE:
-      const { favoritesObj, lookupObj } = removeFromFavorites(
+    }
+    case actionTypes.REMOVE_FAVORITE: {
+      const { favList, favByArtistObj, lookupObj } = removeFromFavorites(
         action.payload,
         state.favorites,
-        state.favArtists
+        state.favArtists,
+        state.favByArtists
       );
       return {
         ...state,
         favArtists: lookupObj,
-        favorites: favoritesObj,
+        favorites: favList,
+        favByArtists: favByArtistObj,
       };
+    }
     case actionTypes.UPDATE_SELECTED_ARTIST:
       return {
         ...state,

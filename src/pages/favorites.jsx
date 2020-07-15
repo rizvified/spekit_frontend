@@ -5,16 +5,18 @@ import _ from "lodash";
 import Card from "../components/card";
 
 import { Store } from "../store";
+import { normalizeDropdownData } from "../utils/normalizers";
 import * as actionTypes from "../constants";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { favorites, favArtists, selectedArtist } = state;
+  const { favorites, favArtists, favByArtists, selectedArtist } = state;
 
   const handleArtistChange = (artist) => {
+    const payload = artist ? artist.value : "";
     dispatch({
       type: actionTypes.UPDATE_SELECTED_ARTIST,
-      payload: artist,
+      payload,
     });
   };
 
@@ -25,7 +27,7 @@ export default () => {
     });
   };
 
-  const list = selectedArtist ? favorites.selectedArtist : favorites;
+  const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
   console.log("favorites", favorites, favArtists, selectedArtist, list);
 
   return (
@@ -34,7 +36,9 @@ export default () => {
         <Select
           value={favArtists.selectedArtist}
           onChange={handleArtistChange}
-          options={favArtists}
+          options={normalizeDropdownData(favArtists)}
+          isClearable
+          isSearchable
         />
       </header>
       <section className='fav-list'>

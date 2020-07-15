@@ -30,33 +30,49 @@ export const removeFromArtistLookup = (albumObj, favArtists) => {
   return lookupObj;
 };
 
-export const addToFavorites = (albumObj, favorites) => {
-  const favoritesObj = Object.assign({}, favorites);
+export const addToFavorites = (albumObj, favorites, favByArtists) => {
+  const favList = [...favorites];
+  const favByArtistObj = Object.assign({}, favByArtists);
   const { artistId } = albumObj;
-  if (!_.has(favoritesObj, artistId)) {
-    favoritesObj[`${artistId}`] = [];
+  if (!_.has(favByArtistObj, artistId)) {
+    favByArtistObj[`${artistId}`] = [];
   }
-  favoritesObj[`${artistId}`].push(albumObj);
-  return favoritesObj;
+  favList.push(albumObj);
+  favByArtistObj[`${artistId}`].push(albumObj);
+  return { favList, favByArtistObj };
 };
 
-export const removeFromFavorites = (albumObj, favorites, favArtists) => {
-  const favoritesObj = Object.assign({}, favorites);
+export const removeFromFavorites = (
+  albumObj,
+  favorites,
+  favArtists,
+  favByArtists
+) => {
+  const favByArtistObj = Object.assign({}, favByArtists);
   let lookupObj = Object.assign({}, favArtists);
   const { id, artistId } = albumObj;
-  if (_.has(favoritesObj, artistId)) {
-    favoritesObj[`${artistId}`] = _.filter(
-      favoritesObj[`${artistId}`],
+
+  const favList = _.filter(favorites, (item) => item.id !== id);
+  if (_.has(favByArtistObj, artistId)) {
+    favByArtistObj[`${artistId}`] = _.filter(
+      favByArtistObj[`${artistId}`],
       (item) => item.id !== id
     );
-    if (favoritesObj[`${artistId}`].length === 0) {
+    if (favByArtistObj[`${artistId}`].length === 0) {
       lookupObj = removeFromArtistLookup(albumObj, lookupObj);
-      _.omit(favoritesObj, `${artistId}`);
+      _.omit(favByArtistObj, `${artistId}`);
     }
   }
 
   return {
-    favoritesObj,
+    favList,
+    favByArtistObj,
     lookupObj,
   };
 };
+
+export const normalizeDropdownData = (data) =>
+  _.map(data, (label, value) => ({
+    value,
+    label,
+  }));
