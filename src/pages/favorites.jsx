@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import Select from "react-select";
 import _ from "lodash";
 
-import Select from "../components/select";
 import Card from "../components/card";
 
 import { Store } from "../store";
@@ -9,23 +9,37 @@ import * as actionTypes from "../constants";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { favorites, favArtists } = state;
+  const { favorites, favArtists, selectedArtist } = state;
 
-  const [selectedArtist, updateSelectedArtist] = useState("");
+  const handleArtistChange = (artist) => {
+    dispatch({
+      type: actionTypes.UPDATE_SELECTED_ARTIST,
+      payload: artist,
+    });
+  };
 
-  const handleChange = (artist) => {
-    updateSelectedArtist(artist);
+  const handleRemoveFavorite = (album) => {
+    dispatch({
+      type: actionTypes.REMOVE_FAVORITE,
+      payload: album,
+    });
   };
 
   const list = selectedArtist ? favorites.selectedArtist : favorites;
+  console.log("favorites", favorites, favArtists, selectedArtist, list);
+
   return (
     <>
       <header className='header'>
-        <Select onChange={handleChange} options={favArtists} />
+        <Select
+          value={favArtists.selectedArtist}
+          onChange={handleArtistChange}
+          options={favArtists}
+        />
       </header>
       <section className='fav-list'>
         {_.map(list, (album) => (
-          <Card album={album} />
+          <Card album={album} clickHandler={handleRemoveFavorite} />
         ))}
       </section>
     </>

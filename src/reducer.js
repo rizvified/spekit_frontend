@@ -38,6 +38,11 @@ export default function (state, action) {
         favArtists: lookupObj,
         favorites: favoritesObj,
       };
+    case actionTypes.UPDATE_SELECTED_ARTIST:
+      return {
+        ...state,
+        selectedArtist: action.payload,
+      };
     default:
       return state;
   }

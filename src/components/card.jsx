@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ album }) => {
+export default ({ album, clickHandler }) => {
   return (
     <div class='card'>
       <div class='container'>
@@ -15,7 +15,7 @@ export default ({ album }) => {
             <p>{`${album.tracks} tracks`}</p>
           </div>
           <div class='favorite'>
-            <button>Fav</button>
+            <button onClick={() => clickHandler(album)}>Fav</button>
           </div>
         </div>
       </div>

@@ -4,16 +4,17 @@ import _ from "lodash";
 export default ({ fetchData }) => {
   const [userQuery, setUserQuery] = useState("");
   const updateQuery = () => fetchData(userQuery);
-  const delayedQuery = useCallback(_.debounce(updateQuery, 500), [userQuery]);
-  const handleChange = (e) => setUserQuery(e.target.value);
+  const debouncedFetch = useCallback(_.debounce(updateQuery, 2000), [
+    userQuery,
+  ]);
 
   useEffect(() => {
     if (userQuery) {
-      delayedQuery();
+      debouncedFetch();
     }
-    // Cancel the debounce on useEffect cleanup.
-    return delayedQuery.cancel;
-  }, [userQuery, delayedQuery]);
+  }, [userQuery, debouncedFetch]);
+
+  const handleChange = (e) => setUserQuery(e.target.value);
 
   return (
     <input
