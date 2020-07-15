@@ -4,8 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/home.jsx";
 import Favorites from "./pages/favorites.jsx";
 
-import "./styles/App.css";
-
 function App() {
   return (
     <Router>

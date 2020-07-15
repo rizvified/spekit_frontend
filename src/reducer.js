@@ -25,11 +25,6 @@ export default function (state, action) {
         ...state,
         favorites: filteredFav,
       };
-    case actionTypes.UPDATE_QUERY:
-      return {
-        ...state,
-        searchQuery: action.payload,
-      };
     default:
       return state;
   }

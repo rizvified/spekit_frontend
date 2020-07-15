@@ -8,20 +8,19 @@ export default ({ fetchData }) => {
   const handleChange = (e) => setUserQuery(e.target.value);
 
   useEffect(() => {
-    delayedQuery();
+    if (userQuery) {
+      delayedQuery();
+    }
     // Cancel the debounce on useEffect cleanup.
     return delayedQuery.cancel;
   }, [userQuery, delayedQuery]);
 
   return (
-    <>
-      <input
-        type='text'
-        className='input'
-        onChange={handleChange}
-        placeholder='Search..'
-        value={userQuery}
-      />
-    </>
+    <input
+      type='text'
+      className='input'
+      onChange={handleChange}
+      value={userQuery}
+    />
   );
 };

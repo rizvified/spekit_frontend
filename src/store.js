@@ -5,7 +5,6 @@ const initialState = {
   albums: [],
   favorites: [],
   loading: false,
-  searchQuery: "",
 };
 
 export const Store = createContext();
