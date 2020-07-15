@@ -15,7 +15,7 @@ export default ({ album }) => {
             <p>{`${album.tracks} tracks`}</p>
           </div>
           <div class='favorite'>
-            <p>Favorite</p>
+            <button>Fav</button>
           </div>
         </div>
       </div>
