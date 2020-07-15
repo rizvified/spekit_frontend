@@ -5,9 +5,12 @@ import {
   addToFavorites,
 } from "./utils/normalizers";
 import { saveToStorage } from "./utils/helpers";
+import { initialState } from "./store";
 
 export default function (state, action) {
   switch (action.type) {
+    case actionTypes.RESET_STATE:
+      return initialState;
     case actionTypes.FETCH_DATA:
       return {
         ...state,

@@ -15,6 +15,10 @@ export default () => {
   const { albums } = state;
 
   useEffect(() => {
+    dispatch({
+      type: actionTypes.RESET_STATE,
+    });
+
     // Cancel data fetching on page change.
     return () => {
       controller.abort();
@@ -37,7 +41,7 @@ export default () => {
       payload: album,
     });
   };
-  console.log("home", albums);
+
   return (
     <>
       <header className='header'>

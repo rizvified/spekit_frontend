@@ -11,7 +11,7 @@ function App() {
         <Route exact path='/'>
           <Home />
         </Route>
-        <Route path='/favorites'>
+        <Route exact path='/favorites'>
           <Favorites />
         </Route>
       </Switch>

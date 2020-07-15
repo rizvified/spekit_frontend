@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from "react";
 import reducer from "./reducer";
 
-const initialState = {
+export const initialState = {
   albums: [],
   favorites: [],
   favByArtists: {},

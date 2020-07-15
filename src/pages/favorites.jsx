@@ -39,7 +39,6 @@ export default () => {
   };
 
   const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
-  console.log("favorites", favorites, artistLookup, selectedArtist, list);
 
   return (
     <>
