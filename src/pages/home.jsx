@@ -11,9 +11,10 @@ import { getAlbumsByArtist } from "../service";
 
 export default () => {
   const { state, dispatch } = useContext(Store);
-  const { albums } = state;
+  const { albums, favoritesID } = state;
 
   useEffect(() => {
+    // Clearing up previous search results on unmount
     return () => {
       dispatch({
         type: actionTypes.RESET_SEARCH,
@@ -45,9 +46,20 @@ export default () => {
         <Link to='/favorites'>Favorites</Link>
       </header>
       <main className='album-list'>
-        {_.map(albums, (album) => (
-          <Card album={album} clickHandler={handleAddFavorite} />
-        ))}
+        {albums.length === 0 ? (
+          <div className='home-text'>
+            <h1>Spekit Frontend Challenge</h1>
+            <h2>search for albums</h2>
+          </div>
+        ) : (
+          _.map(albums, (album) => (
+            <Card
+              album={album}
+              clickHandler={handleAddFavorite}
+              disableFav={favoritesID.includes(album.id)}
+            />
+          ))
+        )}
       </main>
     </>
   );

@@ -1,3 +1,9 @@
+/*
+
+General purpose helper functions
+
+*/
+
 import CryptoJS from "crypto-js";
 import _ from "lodash";
 import qs from "qs";

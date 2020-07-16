@@ -4,10 +4,10 @@ import reducer from "./reducer";
 export const initialState = {
   albums: [],
   favorites: [],
+  favoritesID: [],
   favByArtists: {},
   artistLookup: {},
   selectedArtist: "",
-  loading: false,
 };
 
 export const Store = createContext();

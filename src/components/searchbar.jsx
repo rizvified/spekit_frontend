@@ -10,7 +10,6 @@ export default ({ fetchData }) => {
     if (userQuery) {
       debouncedFetch();
     }
-
     // Cancel the debounce on useEffect cleanup.
     return debouncedFetch.cancel;
   }, [userQuery, debouncedFetch]);
@@ -21,6 +20,7 @@ export default ({ fetchData }) => {
     <input
       type='text'
       className='input'
+      placeholder='Enter artist name..'
       onChange={handleChange}
       value={userQuery}
     />

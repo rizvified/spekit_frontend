@@ -1,6 +1,11 @@
 import React from "react";
 
-export default ({ album, clickHandler }) => {
+export default ({
+  album,
+  clickHandler,
+  disableFav = false,
+  removeFav = false,
+}) => {
   return (
     <div className='card'>
       <div className='container'>
@@ -15,7 +20,12 @@ export default ({ album, clickHandler }) => {
             <p>{`${album.tracks} Tracks`}</p>
           </div>
           <div className='favorite'>
-            <button onClick={() => clickHandler(album)}>Favorite</button>
+            <button
+              onClick={() => clickHandler(album)}
+              disabled={!removeFav && disableFav}
+            >
+              {removeFav ? "Remove" : "Favorite"}
+            </button>
           </div>
         </div>
       </div>

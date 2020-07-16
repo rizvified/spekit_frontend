@@ -13,54 +13,59 @@ export default function (state, action) {
         ...state,
         albums: [],
       };
-    case actionTypes.FETCH_DATA:
-      return {
-        ...state,
-        loading: true,
-      };
     case actionTypes.FETCH_DATA_COMPLETE:
       return {
         ...state,
-        loading: false,
         albums: action.payload,
       };
     case actionTypes.ADD_FAVORITE: {
       const { payload } = action;
       const artistLookup = addToArtistLookup(payload, state.artistLookup);
-      const { favList, favByArtistObj } = addToFavorites(
+      const { favList, favByArtistObj, favIDList } = addToFavorites(
         payload,
         state.favorites,
-        state.favByArtists
+        state.favByArtists,
+        state.favoritesID
       );
       saveToStorage({
         favorites: favList,
         favByArtists: favByArtistObj,
         artistLookup,
+        favoritesID: favIDList,
       });
       return {
         ...state,
         artistLookup,
         favorites: favList,
         favByArtists: favByArtistObj,
+        favoritesID: favIDList,
       };
     }
     case actionTypes.REMOVE_FAVORITE: {
-      const { favList, favByArtistObj, artistLookup } = removeFromFavorites(
+      const {
+        favList,
+        favByArtistObj,
+        artistLookup,
+        favIDList,
+      } = removeFromFavorites(
         action.payload,
         state.favorites,
         state.artistLookup,
-        state.favByArtists
+        state.favByArtists,
+        state.favoritesID
       );
       saveToStorage({
         favorites: favList,
         favByArtists: favByArtistObj,
         artistLookup,
+        favoritesID: favIDList,
       });
       return {
         ...state,
         artistLookup,
         favorites: favList,
         favByArtists: favByArtistObj,
+        favoritesID: favIDList,
       };
     }
     case actionTypes.REMOVE_ALL_FAVORITES: {
@@ -70,6 +75,7 @@ export default function (state, action) {
         favorites: [],
         favByArtists: {},
         artistLookup: {},
+        favoritesID: [],
       };
     }
     case actionTypes.UPDATE_SELECTED_ARTIST:

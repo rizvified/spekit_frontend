@@ -1,19 +1,26 @@
 .header-favorites {
-  display: inherit;
-  flex-direction: row;
-  justify-content: space-between;
-  /* margin: 0 25%; */
+  margin: inherit;
 }
 
-.header-favorites .favorite-actions {
-  display: inherit;
-  flex-direction: row;
+.header-favorites .favorite-btn {
+  float: right;
+  margin-top: 10px;
 }
 
 .favorite-list {
   display: inherit;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: inherit;
+}
+
+.favorite-list .favorite-text {
+  text-align: center;
+}
+
+.favorite-list div h2 {
+  margin-top: 0;
+  color: grey;
+  font-style: italic;
 }

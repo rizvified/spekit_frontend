@@ -14,6 +14,7 @@ export default () => {
   const { favorites, artistLookup, favByArtists, selectedArtist } = state;
 
   useEffect(() => {
+    // Retrieves stored favorites from local storage, if any
     const data = retrieveFromStorage();
     if (!_.isEmpty(data)) {
       dispatch({
@@ -44,28 +45,34 @@ export default () => {
     });
   };
 
+  // Displays favorites by arists if any artist is selected, default to all favorites
   const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
 
   return (
     <>
       <header className='header-favorites'>
-        <h2>Favorites</h2>
-        <div className='favorite-actions'>
-          <Select
-            className='favorite-select'
-            value={artistLookup.selectedArtist}
-            onChange={handleArtistChange}
-            options={normalizeDropdownData(artistLookup)}
-            isClearable
-            isSearchable
-          />
+        <Select
+          className='favorite-select'
+          value={artistLookup.selectedArtist}
+          onChange={handleArtistChange}
+          options={normalizeDropdownData(artistLookup)}
+          isClearable
+          isSearchable
+        />
+        <div className='favorite-btn'>
           <button onClick={handleRemoveAll}>Remove All</button>
         </div>
       </header>
       <main className='favorite-list'>
-        {_.map(list, (album) => (
-          <Card album={album} clickHandler={handleRemoveFavorite} />
-        ))}
+        {list.length === 0 ? (
+          <div className='favorite-text'>
+            <h2>Oops, you have no favorites</h2>
+          </div>
+        ) : (
+          _.map(list, (album) => (
+            <Card album={album} clickHandler={handleRemoveFavorite} removeFav />
+          ))
+        )}
       </main>
     </>
   );
