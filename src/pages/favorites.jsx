@@ -46,7 +46,10 @@ export default () => {
   };
 
   // Displays favorites by arists if any artist is selected, default to all favorites
-  const list = selectedArtist ? favByArtists[`${selectedArtist}`] : favorites;
+  const list =
+    selectedArtist && !_.isEmpty(favByArtists)
+      ? favByArtists[`${selectedArtist}`]
+      : favorites;
 
   return (
     <>
