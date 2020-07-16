@@ -34,7 +34,7 @@ export const removeFromArtistLookup = (albumObj, favArtists) => {
   let lookupObj = Object.assign({}, favArtists);
   const { artistId } = albumObj;
   if (_.has(lookupObj, artistId)) {
-    _.omit(lookupObj, `${artistId}`);
+    lookupObj = _.omit(lookupObj, `${artistId}`);
   }
   return lookupObj;
 };
@@ -71,7 +71,7 @@ export const removeFromFavorites = (
   favByArtists,
   favoritesID
 ) => {
-  const favByArtistObj = Object.assign({}, favByArtists);
+  let favByArtistObj = Object.assign({}, favByArtists);
   let artistLookup = Object.assign({}, favArtists);
   const { id, artistId } = albumObj;
 
@@ -91,7 +91,7 @@ export const removeFromFavorites = (
     if (favByArtistObj[`${artistId}`].length === 0) {
       artistLookup = removeFromArtistLookup(albumObj, artistLookup);
       // Also remove artistID key from artistID -> albums map
-      _.omit(favByArtistObj, `${artistId}`);
+      favByArtistObj = _.omit(favByArtistObj, `${artistId}`);
     }
   }
 
