@@ -1,6 +1,6 @@
 ## Spekit Frontend Challenge
 
-Description An small frontend application that let's you search albums by artists, and mark them as favorites.
+A small frontend application that let's you search albums by artists, and mark them as favorites.
 
 In the project directory, you can run:
 
