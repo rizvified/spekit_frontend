@@ -1,0 +1,41 @@
+.header-home {
+  display: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: inherit;
+}
+
+.header-home input {
+  margin-right: 10px;
+}
+
+.header-home a {
+  border: 1px solid black;
+  text-decoration: none;
+  margin: auto;
+  color: black;
+  padding: 8px;
+  border-radius: 3px;
+}
+
+.album-list {
+  display: inherit;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: inherit;
+}
+
+.album-list .home-text {
+  text-align: center;
+}
+
+.album-list div h1 {
+  margin-bottom: 0;
+}
+
+.album-list div h2 {
+  margin-top: 0;
+  color: grey;
+  font-style: italic;
+}
