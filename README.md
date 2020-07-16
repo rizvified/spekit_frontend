@@ -34,4 +34,4 @@ The design has been kept extremely simple with a focus mainly search. At default
 
 ### Note
 
-Due to the requirements of not using any CSS frameworks, the effort had been directed towards creating a simple yet effective design with all the core functionality included.
+Due to the requirements of not using any CSS frameworks, the effort had been directed towards creating a simple design, taking inspiration from search engines, with all the required functionality included.
